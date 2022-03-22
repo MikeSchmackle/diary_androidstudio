@@ -1,11 +1,27 @@
 
+import 'dart:ui';
+
+import 'package:diary_webapp/screens/get_started_page.dart';
 import 'package:flutter/material.dart';
 import 'screens/main_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp();
-  runApp(const MyApp());
+void main() async{
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp(
+     options: FirebaseOptions(
+         apiKey: "AIzaSyCa4n9kdshjrnWGiQvJdshT3g3prT_zfLo",
+         authDomain: "diary-app-course-67fbc.firebaseapp.com",
+         projectId: "diary-app-course-67fbc",
+         storageBucket: "diary-app-course-67fbc.appspot.com",
+         messagingSenderId: "279474906769",
+         appId: "1:279474906769:web:f1621c6663717b9c798130"
+     ),
+   );
+   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,11 +36,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             visualDensity: VisualDensity.adaptivePlatformDensity,
             primarySwatch: Colors.green),
-        home: const MainPage());
+        home: GettingStartedPage());
   }
 }
 
-/* class GetInfo extends StatelessWidget {
+ class GetInfo extends StatelessWidget {
   const GetInfo({Key? key}) : super(key: key);
 
   @override
@@ -51,4 +67,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-} */
+}
