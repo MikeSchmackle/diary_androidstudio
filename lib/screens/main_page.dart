@@ -23,7 +23,7 @@ class _MainPageState extends State<MainPage> {
               'Diary',
               style: TextStyle(fontSize: 39, color: Colors.blueGrey.shade100),
             ),
-            const Text(
+            Text(
               'Book',
               style: TextStyle(fontSize: 39, color: Colors.green),
             )

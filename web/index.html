@@ -100,5 +100,26 @@
       loadMainDartJs();
     }
   </script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCa4n9kdshjrnWGiQvJdshT3g3prT_zfLo",
+    authDomain: "diary-app-course-67fbc.firebaseapp.com",
+    projectId: "diary-app-course-67fbc",
+    storageBucket: "diary-app-course-67fbc.appspot.com",
+    messagingSenderId: "279474906769",
+    appId: "1:279474906769:web:f1621c6663717b9c798130"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
 </body>
 </html>
