@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:diary_webapp/widgets/input_decorator.dart';
+import 'package:diary_webapp/widgets/login_form.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController _emailTextController;
@@ -39,30 +40,7 @@ class LoginPage extends StatelessWidget {
                   SizedBox(
                     width: 300,
                     height: 300,
-                    child: Form(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextFormField(
-                                controller: _emailTextController,
-                                decoration: buildInputDecoration('email','bubbawatson@livgolf.com')),
-                          TextFormField(
-                              controller: _passwordTextController,
-                              decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      borderSide:
-                                      BorderSide(color: Colors.blue) //BorderSide
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(25.0),
-                                      borderSide:
-                                      BorderSide(color: Color(0XFF69639f))),
-                                  labelText: 'password',
-                                  hintText: 'yoBang69!'))
-                          ],
-                        )),
+                    child: LoginForm(emailTextController: _emailTextController, passwordTextController: _passwordTextController),
                   )
                 ],
               ),
@@ -78,4 +56,6 @@ class LoginPage extends StatelessWidget {
 
 
 }
+
+
 
