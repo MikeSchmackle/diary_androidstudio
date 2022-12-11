@@ -1,7 +1,6 @@
 import 'package:diary_webapp/screens/login_page.dart';
 import 'package:flutter/material.dart';
 
-
 class GettingStartedPage extends StatelessWidget {
   const GettingStartedPage({Key? key}) : super(key: key);
 
@@ -13,16 +12,18 @@ class GettingStartedPage extends StatelessWidget {
             child: Column(
               children: [
                 Spacer(),
-                Text('DiaryBook.', style: Theme.of(context).textTheme.headline3
-                ),
+                Text('DiaryBook.',
+                    style: Theme.of(context).textTheme.headline3),
                 SizedBox(
                   height: 40,
                 ),
-                Text('"Document your life"',style:TextStyle(
-                    fontSize: 29,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.black26),
+                Text(
+                  '"Document your life"',
+                  style: TextStyle(
+                      fontSize: 29,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.black26),
                 ),
                 SizedBox(
                   height: 20,
@@ -33,24 +34,24 @@ class GettingStartedPage extends StatelessWidget {
                   child: TextButton.icon(
                     style: TextButton.styleFrom(
                       textStyle:
-                      TextStyle(fontSize:19,fontWeight:FontWeight.bold ),
+                      TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
                     ),
-
                     icon: Icon(Icons.login_rounded),
                     label: Text('Sign in to Get Started'),
-                    onPressed: (){
+                    onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder:  (context) => LoginPage(),
+                            builder: (context) => LoginPage(
+                              emailTextController: TextEditingController(),
+                              passwordTextController: TextEditingController(),
+                            ),
                           ));
                     },
                   ),
                 ),
                 Spacer(),
               ],
-            )
-        )
-    );
+            )));
   }
 }
