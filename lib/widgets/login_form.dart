@@ -6,11 +6,14 @@ class LoginForm extends StatelessWidget {
     Key? key,
     required TextEditingController emailTextController,
     required TextEditingController passwordTextController,
-  }) : _emailTextController = emailTextController, _passwordTextController = passwordTextController, super(key: key);
-
+    GlobalKey<FormState>? formKey
+  }) : _emailTextController = emailTextController,
+        _passwordTextController = passwordTextController,
+        _globalKey = formKey,
+        super(key: key);
   final TextEditingController _emailTextController;
   final TextEditingController _passwordTextController;
-
+  final GlobalKey<FormState>? _globalKey;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -20,6 +23,9 @@ class LoginForm extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextFormField(
+                validator: (value){
+                  return value!.isEmpty ? 'Please enter an email' : null;
+                },
                   controller: _emailTextController,
                   decoration: buildInputDecoration('email','bubbawatson@livgolf.com')),
             ),
@@ -29,6 +35,9 @@ class LoginForm extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextFormField(
+                  validator: (value){
+                    return value!.isEmpty ? 'Please enter an email' : null;
+                  },
                   obscureText: true,
                   controller: _passwordTextController,
                   decoration: InputDecoration(
@@ -58,7 +67,11 @@ class LoginForm extends StatelessWidget {
                     textStyle: TextStyle(
                         fontSize: 18
                     )),
-                onPressed: () {},
+                onPressed: () {
+                  if ( _globalKey!.currentState!.validate()) {
+                      print('All is good');
+                  }
+                },
                 child: Text('Sign in'))
           ],
         ));
