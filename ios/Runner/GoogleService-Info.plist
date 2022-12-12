@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>279474906769-p9qkoic6tm3camdcp9i0p7um884nfmmi.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.279474906769-p9qkoic6tm3camdcp9i0p7um884nfmmi</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDEfcn9kuRh9bjri7S5h-VT1cleHuXJ54U</string>
+	<key>GCM_SENDER_ID</key>
+	<string>279474906769</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.diaryAndroidstudio</string>
+	<key>PROJECT_ID</key>
+	<string>diary-app-course-67fbc</string>
+	<key>STORAGE_BUCKET</key>
+	<string>diary-app-course-67fbc.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:279474906769:ios:8001a800200d1953798130</string>
+</dict>
+</plist>

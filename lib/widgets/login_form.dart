@@ -1,5 +1,8 @@
 import 'package:diary_webapp/widgets/input_decorator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../screens/main_page.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
@@ -17,6 +20,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _globalKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -36,7 +40,7 @@ class LoginForm extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: TextFormField(
                   validator: (value){
-                    return value!.isEmpty ? 'Please enter an email' : null;
+                    return value!.isEmpty ? 'Please enter a password' : null;
                   },
                   obscureText: true,
                   controller: _passwordTextController,
@@ -69,7 +73,17 @@ class LoginForm extends StatelessWidget {
                     )),
                 onPressed: () {
                   if ( _globalKey!.currentState!.validate()) {
-                      print('All is good');
+                    FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                        email: _emailTextController.text,
+                        password: _passwordTextController.text)
+                        .then((value) {
+                      return Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                            return MainPage();
+                          },
+                          ));
+                    });
                   }
                 },
                 child: Text('Sign in'))

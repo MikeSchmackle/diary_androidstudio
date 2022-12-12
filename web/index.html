@@ -10,11 +10,8 @@
 
     For more details:
     * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="$FLUTTER_BASE_HREF">
+  <base href="/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -23,20 +20,17 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="diary_androidstudio">
+  <meta name="apple-mobile-web-app-title" content="diary_webapp">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <title>diary_androidstudio</title>
+  <title>diary_webapp</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <!-- This script installs service_worker.js to provide PWA functionality to
-       application. For more information, see:
-       https://developers.google.com/web/fundamentals/primers/service-workers -->
-  <script>
+<!-- This script installs service_worker.js to provide PWA functionality to
+     application. For more information, see:
+     https://developers.google.com/web/fundamentals/primers/service-workers -->
+<script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;
     function loadMainDartJs() {
@@ -70,7 +64,7 @@
             if (!reg.active && (reg.installing || reg.waiting)) {
               // No active web worker and we have installed or are installing
               // one for the first time. Simply wait for it to activate.
-              waitForActivation(reg.installing || reg.waiting);
+              waitForActivation(reg.installing ?? reg.waiting);
             } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
               // When the app updates the serviceWorkerVersion changes, so we
               // need to ask the service worker to update.
@@ -100,26 +94,39 @@
       loadMainDartJs();
     }
   </script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
 
-  <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
   // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyCa4n9kdshjrnWGiQvJdshT3g3prT_zfLo",
-    authDomain: "diary-app-course-67fbc.firebaseapp.com",
-    projectId: "diary-app-course-67fbc",
-    storageBucket: "diary-app-course-67fbc.appspot.com",
-    messagingSenderId: "279474906769",
-    appId: "1:279474906769:web:f1621c6663717b9c798130"
-  };
-
+const firebaseConfig = {
+  apiKey: "AIzaSyCa4n9kdshjrnWGiQvJdshT3g3prT_zfLo",
+  authDomain: "diary-app-course-67fbc.firebaseapp.com",
+  projectId: "diary-app-course-67fbc",
+  storageBucket: "diary-app-course-67fbc.appspot.com",
+  messagingSenderId: "279474906769",
+  appId: "1:279474906769:web:f1621c6663717b9c798130"
+};
   // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+
+<script type="text/javascript">
+  let useHtml = true;
+  if(useHtml) {
+    window.flutterWebRenderer = "html";
+  } else {
+    window.flutterWebRenderer = "canvaskit";
+  }
 </script>
 </body>
 </html>
