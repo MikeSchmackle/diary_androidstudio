@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diary_webapp/model/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -60,33 +64,48 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               //TODO: create profile
-              Container(
-                child: Row(
-                  children: [
-                    Column(
-                      children: const [
-                        Expanded(
+              StreamBuilder<QuerySnapshot>(
+                stream:
+                FirebaseFirestore.instance.collection('users').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  }
+
+                  print(FirebaseAuth.instance.currentUser!.displayName);
+
+                return Container(
+                  child: Row(
+                    children: [
+                      Column(
+                        children: const [
+                          Expanded(
                             child: InkWell(
-                          child: CircleAvatar(
+                            child: CircleAvatar(
                             radius: 30,
                             backgroundImage: NetworkImage(
-                                'https://picsum.photos/200/300.jpg'),
+                              'https://picsum.photos/200/300.jpg'),
                             backgroundColor: Colors.transparent,
+                            ),)
                           ),
-                        )),
                         Text(
-                          'Schmackle',
+                         'curUser.displayName',
                           style: TextStyle(color: Colors.grey),
                         )
-                      ],
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.logout_outlined,
-                            size: 19, color: Colors.red))
-                  ],
-                ),
-              )
+                        ],
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.logout_outlined,
+                      size: 19,
+                      color: Colors.red,
+                    ))
+                    ],
+                  ),
+                  );
+                  },
+              ),
             ],
           )
         ],

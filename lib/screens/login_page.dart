@@ -2,10 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:diary_webapp/widgets/input_decorator.dart';
 import 'package:diary_webapp/widgets/login_form.dart';
 
-class LoginPage extends StatelessWidget {
+import '../widgets/create_account_form.dart';
+
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailTextController = TextEditingController();
+
   final TextEditingController _passwordTextController= TextEditingController();
+
   final GlobalKey<FormState>? _globalKey= GlobalKey<FormState>();
+  bool isCreateAccountClicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +40,37 @@ class LoginPage extends StatelessWidget {
                   SizedBox(
                     width: 300,
                     height: 300,
-                    child: LoginForm(
+                    child:
+                    isCreateAccountClicked
+                        ?CreateAccountForm(
+                        formKey: _globalKey,
+                        emailTextController: _emailTextController,
+                        passwordTextController: _passwordTextController)
+                        :LoginForm(
                         formKey: _globalKey,
                         emailTextController: _emailTextController,
                         passwordTextController: _passwordTextController),
-                  )
+                  ),
+                    TextButton.icon(
+                        icon: Icon(Icons.portrait_rounded),
+                        label: Text(
+                            isCreateAccountClicked
+                                ? 'Already have an account?'
+                                :'Create Account',
+                        ),
+                        style: TextButton.styleFrom(
+                          textStyle:
+                              TextStyle(fontSize: 18, fontStyle: FontStyle.italic)),
+          onPressed: () {
+            setState(() {
+              if (!isCreateAccountClicked) {
+                isCreateAccountClicked = true;
+              } else {
+                isCreateAccountClicked = false;
+              }
+            });
+          },
+                    )
                 ],
               ),
               Expanded(
@@ -46,8 +82,6 @@ class LoginPage extends StatelessWidget {
           )),
     );
   }
-
-
 }
 
 
