@@ -63,49 +63,64 @@ class _MainPageState extends State<MainPage> {
                   },
                 ),
               ),
-              //TODO: create profile
               StreamBuilder<QuerySnapshot>(
-                stream:
-                FirebaseFirestore.instance.collection('users').snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  }
+                              stream:
+                                  FirebaseFirestore.instance.collection('users').snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return CircularProgressIndicator();
+                                }
 
-                  print(FirebaseAuth.instance.currentUser!.displayName);
+                               final usersListStream = snapshot.data!.docs.map((docs) {
+                                                   return MUser.fromDocument(docs);
+                                                 }).where((muser) {
+                                                   // print("MUser: ${muser.uid}");
+                                                   return (muser.uid ==
+                                                       FirebaseAuth.instance.currentUser!.uid);
+                                                 }).toList();
+                                                 // print(
+                                                 //     "CurrUser--->  ${FirebaseAuth.instance.currentUser!.uid}");
 
-                return Container(
-                  child: Row(
-                    children: [
-                      Column(
-                        children: const [
-                          Expanded(
-                            child: InkWell(
-                            child: CircleAvatar(
-                            radius: 30,
-                            backgroundImage: NetworkImage(
-                              'https://picsum.photos/200/300.jpg'),
-                            backgroundColor: Colors.transparent,
-                            ),)
-                          ),
-                        Text(
-                         'curUser.displayName',
-                          style: TextStyle(color: Colors.grey),
-                        )
-                        ],
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.logout_outlined,
-                      size: 19,
-                      color: Colors.red,
-                    ))
-                    ],
-                  ),
-                  );
-                  },
-              ),
+                                                 //   print("List---> ${usersListStream.length}");
+                                                 MUser curUser = usersListStream[0];
+                                print(curUser.displayName);
+                                return Container(
+                                                         child: Row(
+                                                           children: [
+                                                             Column(
+                                                               children:[
+                                                                 Expanded(
+                                                                   child: InkWell(
+                                                                       child: CircleAvatar(
+                                                                           radius: 30,
+                                                                           backgroundImage: NetworkImage(
+                                                                               'https://picsum.photos/200/300.jpg'),
+                                                                           backgroundColor: Colors.transparent,
+                                                                       ),
+                                                                   )
+                                                                   ),
+                                                                   Expanded(
+                                                                   child: Text(
+                                                                       curUser.displayName!,
+                                                                       style: TextStyle(color: Colors.grey),
+                                                                   )),
+                                                                   Expanded(
+                                                                   child: IconButton(
+                                                                       onPressed: () {},
+                                                                       icon: const Icon(
+                                                                         Icons.logout_outlined,
+                                                                         size: 19,
+                                                                         color: Colors.red,
+                                                                       ),
+                                                                   )
+                                                                 ),
+                                                               ],
+                                                             )
+                                                           ],
+                                                         ),
+);
+                                }),
+
             ],
           )
         ],
@@ -113,7 +128,7 @@ class _MainPageState extends State<MainPage> {
       body: Row(
         children: [
           Expanded(
-              flex: 1,
+              flex: 4,
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 decoration: const BoxDecoration(
@@ -142,22 +157,23 @@ class _MainPageState extends State<MainPage> {
                               size: 40,
                               color: Colors.greenAccent,
                             ),
-                            label: const Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
+                            label:
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   'Add New',
                                   style: TextStyle(fontSize: 17),
                                 ),
                               ),
-                            )),
+
+                          ),
                       ),
                     )
                   ],
                 ),
               )),
           Expanded(
-            flex: 4,
+            flex: 10,
             child: Container(
               color: Colors.white,
               child: Column(

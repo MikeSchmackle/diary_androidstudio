@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class MUser{
+class MUser {
   final String? id;
   final String? uid;
   final String? displayName;
@@ -9,24 +9,21 @@ class MUser{
 
   MUser({this.id, this.uid, this.displayName, this.profession, this.avatarUrl});
 
-  factory MUser.fromDocument(QueryDocumentSnapshot data){
+  factory MUser.fromDocument(QueryDocumentSnapshot data) {
     return MUser(
-      id: data.id,
-      uid: data.get('uid'),
-      displayName: data.get('display_name'),
-      profession: data.get('profession'),
-      avatarUrl: data.get('avatar_url')
-    );
+        id: data.id,
+        uid: data.get('uid'),
+        displayName: data.get('display_name'),
+        profession: data.get('profession'),
+        avatarUrl: data.get('avatar_url'));
   }
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
-      'uid':uid,
+      'uid': uid,
       'display_name': displayName,
       'profession': profession,
       'avatar_url': avatarUrl
     };
   }
-
-
 }
