@@ -3,6 +3,8 @@ import 'package:diary_webapp/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:diary_webapp/widgets/update_user_profile_dialog.dart';
+import 'package:diary_webapp/widgets/create_profile.dart';
 
 
 class MainPage extends StatefulWidget {
@@ -64,66 +66,31 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               StreamBuilder<QuerySnapshot>(
-                              stream:
-                                  FirebaseFirestore.instance.collection('users').snapshots(),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return CircularProgressIndicator();
-                                }
+                  stream:
+                      FirebaseFirestore.instance.collection('users').snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    }
 
-                               final usersListStream = snapshot.data!.docs.map((docs) {
-                                                   return MUser.fromDocument(docs);
-                                                 }).where((muser) {
-                                                   // print("MUser: ${muser.uid}");
-                                                   return (muser.uid ==
-                                                       FirebaseAuth.instance.currentUser!.uid);
-                                                 }).toList();
-                                                 // print(
-                                                 //     "CurrUser--->  ${FirebaseAuth.instance.currentUser!.uid}");
+                   final usersListStream = snapshot.data!.docs.map((docs) {
+                       return MUser.fromDocument(docs);
+                     }).where((muser) {
+                       // print("MUser: ${muser.uid}");
+                       return (muser.uid ==
+                           FirebaseAuth.instance.currentUser!.uid);
+                     }).toList();
+                     // print(
+                     //     "CurrUser--->  ${FirebaseAuth.instance.currentUser!.uid}");
 
-                                                 //   print("List---> ${usersListStream.length}");
-                                                 MUser curUser = usersListStream[0];
-                                print(curUser.displayName);
-                                return Container(
-                                                         child: Row(
-                                                           children: [
-                                                             Column(
-                                                               children:[
-                                                                 Expanded(
-                                                                   child: InkWell(
-                                                                       child: CircleAvatar(
-                                                                           radius: 30,
-                                                                           backgroundImage: NetworkImage(
-                                                                               'https://picsum.photos/200/300.jpg'),
-                                                                           backgroundColor: Colors.transparent,
-                                                                       ),
-                                                                   )
-                                                                   ),
-                                                                   Expanded(
-                                                                   child: Text(
-                                                                       curUser.displayName!,
-                                                                       style: TextStyle(color: Colors.grey),
-                                                                   )),
-                                                                   Expanded(
-                                                                   child: IconButton(
-                                                                       onPressed: () {},
-                                                                       icon: const Icon(
-                                                                         Icons.logout_outlined,
-                                                                         size: 19,
-                                                                         color: Colors.red,
-                                                                       ),
-                                                                   )
-                                                                 ),
-                                                               ],
-                                                             )
-                                                           ],
-                                                         ),
-);
-                                }),
-
-            ],
-          )
-        ],
+                     //   print("List---> ${usersListStream.length}");
+                     MUser curUser = usersListStream[0];
+                   return CreateProfile(curUser: curUser);
+                  },
+              ),
+            ]
+          ),
+        ]
       ),
       body: Row(
         children: [

@@ -24,4 +24,16 @@ class DiaryService{
       userCollectionReference.add(user.toMap());
       return;
   }
+  Future<void> update(MUser user, String displayName, String avatarUrl,
+      BuildContext context) async {
+    MUser updateUser =
+    MUser(displayName: displayName, avatarUrl: avatarUrl, uid: user.uid);
+
+    userCollectionReference
+        .doc(user.id)
+        .update(updateUser.toMap())
+        .onError((error, stackTrace) => print(error.toString()));
+    return;
+  }
+
 }
