@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:diary_webapp/widgets/update_user_profile_dialog.dart';
 import 'package:diary_webapp/widgets/create_profile.dart';
+import 'package:diary_webapp/widgets/write_diary_dialog.dart';
 
 
 class MainPage extends StatefulWidget {
@@ -16,8 +17,11 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   String? _dropDownText;
+   DateTime selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
+  TextEditingController _titleTextController = TextEditingController();
+      TextEditingController _descriptionTextController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.shade100,
@@ -167,11 +171,22 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          tooltip: 'Add',
-          child: const Icon(
-            Icons.add,
-          )),
-    );
+      onPressed: () {
+                 showDialog(
+                   context: context,
+                   builder: (context) {
+                     return WriteDiaryDialog(
+                         selectedDate: selectedDate,
+                         titleTextController: _titleTextController,
+                         descriptionTextController: _descriptionTextController);
+                   },
+                 );
+               },
+               tooltip: 'Add',
+               child: Icon(
+                 Icons.add,
+               )
+               ),
+               );
   }
 }
