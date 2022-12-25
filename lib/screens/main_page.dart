@@ -151,7 +151,7 @@ class _MainPageState extends State<MainPage> {
                 children: [
                   Expanded(
                       child: ListView.builder(
-                    itemCount: 5,
+                    itemCount: 9,
                     itemBuilder: (context, index) {
                       return SizedBox(
                         width: MediaQuery.of(context).size.width * 0.4,
